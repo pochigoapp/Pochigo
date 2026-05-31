@@ -1,0 +1,97 @@
+---
+const stats = [
+  { value: '$8,000', label: 'mxn semanales promedio*' },
+  { value: '0%',     label: 'comisión los primeros 30 días' },
+  { value: '24/7',   label: 'tú decides cuándo conducir' },
+];
+
+const steps = [
+  'Descarga la app PochiGO Conductor',
+  'Sube tu identificación, licencia y placas',
+  'Validamos tu cuenta en menos de 24 horas',
+  'Empieza a recibir viajes y a generar ingresos',
+];
+---
+
+<section id="conductores" class="section-y bg-pochi-gradient-dark text-white relative overflow-hidden">
+  <!-- Decorative blur orbs -->
+  <div class="absolute top-1/4 -left-32 w-96 h-96 bg-pochi-600 rounded-full blur-3xl opacity-30"></div>
+  <div class="absolute bottom-1/4 -right-32 w-96 h-96 bg-pochi-400 rounded-full blur-3xl opacity-20"></div>
+  <div class="absolute inset-0 grid-pattern opacity-[0.03]"></div>
+
+  <div class="container-x relative">
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <!-- Left: copy -->
+      <div class="lg:col-span-6 reveal">
+        <span class="eyebrow !text-pochi-400">Para conductores</span>
+        <h2 class="heading-lg mt-3 text-white">
+          Convierte tu mototaxi en
+          <span class="bg-clip-text text-transparent bg-gradient-to-br from-pochi-300 to-pochi-500">una fuente de ingresos</span>
+        </h2>
+        <p class="lead mt-5 !text-ink-300">
+          Maneja con tu propio horario, sin jefes ni rutas fijas.
+          Tú decides cuándo y dónde trabajar.
+        </p>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-4 sm:gap-6 mt-10">
+          {stats.map((s) => (
+            <div>
+              <div class="font-display font-extrabold text-2xl sm:text-3xl text-white">
+                {s.value}
+              </div>
+              <div class="text-xs sm:text-sm text-ink-400 mt-1 leading-snug">{s.label}</div>
+            </div>
+          ))}
+        </div>
+        <p class="text-xs text-ink-400 mt-3">*Promedio reportado por conductores con +30hr/semana.</p>
+
+        <div class="mt-10 flex flex-col sm:flex-row gap-3">
+          <a href="#descarga" class="btn-primary">
+            Quiero ser conductor
+          </a>
+          <a href="#contacto" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full
+                                      border-2 border-white/20 text-white font-semibold
+                                      hover:bg-white/10 transition-all">
+            Tengo dudas
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: steps card -->
+      <div class="lg:col-span-6 reveal">
+        <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-7 sm:p-9">
+          <div class="flex items-center gap-3 mb-7">
+            <div class="w-12 h-12 rounded-xl bg-pochi-600 flex items-center justify-center text-2xl">
+              🚀
+            </div>
+            <div>
+              <div class="text-xs uppercase tracking-wider text-pochi-300 font-semibold">Empezar es fácil</div>
+              <div class="font-display font-bold text-xl text-white">4 pasos para activarte</div>
+            </div>
+          </div>
+
+          <ol class="space-y-4">
+            {steps.map((step, i) => (
+              <li class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-pochi-600 text-white font-bold text-sm flex items-center justify-center">
+                  {i + 1}
+                </div>
+                <p class="text-ink-200 leading-relaxed pt-1">{step}</p>
+              </li>
+            ))}
+          </ol>
+
+          <div class="mt-8 pt-7 border-t border-white/10">
+            <div class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-success" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span class="text-ink-300">Sin pagos iniciales · Sin compromiso de horas mínimas</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,58 @@
+---
+const steps = [
+  {
+    number: '01',
+    icon: '📍',
+    title: 'Pide tu mototaxi',
+    desc: 'Marca tu destino en el mapa. La app te muestra el precio exacto antes de confirmar.',
+  },
+  {
+    number: '02',
+    icon: '🛺',
+    title: 'Llega en minutos',
+    desc: 'El conductor más cercano acepta tu viaje. Síguelo en tiempo real desde la app.',
+  },
+  {
+    number: '03',
+    icon: '🏁',
+    title: 'Llega a tu destino',
+    desc: 'Súbete, disfruta el viaje y paga en efectivo o con tarjeta. Califica al conductor al final.',
+  },
+];
+---
+
+<section id="como-funciona" class="section-y bg-white">
+  <div class="container-x">
+    <!-- Header -->
+    <div class="text-center max-w-2xl mx-auto mb-14 sm:mb-20">
+      <span class="eyebrow reveal">Así de simple</span>
+      <h2 class="heading-lg mt-3 reveal">Pedir tu mototaxi en 3 pasos</h2>
+      <p class="lead mt-5 reveal">
+        Sin llamadas, sin esperas largas, sin sorpresas en el precio.
+        Todo desde tu celular.
+      </p>
+    </div>
+
+    <!-- Steps -->
+    <div class="grid md:grid-cols-3 gap-6 lg:gap-8 relative">
+      <!-- Connecting line (desktop only) -->
+      <div class="hidden md:block absolute top-20 left-[16%] right-[16%] h-px bg-gradient-to-r from-pochi-200 via-pochi-400 to-pochi-200" aria-hidden="true"></div>
+
+      {steps.map((step, i) => (
+        <div class="card relative reveal" style={`animation-delay: ${i * 120}ms`}>
+          <!-- Number badge -->
+          <div class="flex items-center justify-between mb-5">
+            <div class="w-14 h-14 rounded-2xl bg-pochi-gradient flex items-center justify-center text-3xl shadow-glow">
+              {step.icon}
+            </div>
+            <span class="font-display text-5xl font-extrabold text-pochi-100">
+              {step.number}
+            </span>
+          </div>
+          <h3 class="heading-md text-ink-900 mb-3">{step.title}</h3>
+          <p class="text-ink-500 leading-relaxed">{step.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

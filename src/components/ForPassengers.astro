@@ -1,0 +1,74 @@
+---
+const benefits = [
+  {
+    icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>`,
+    title: 'Llega rápido',
+    desc: 'Las mototaxis se abren paso por el tráfico. Llega en la mitad del tiempo.',
+  },
+  {
+    icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
+    title: 'Precio justo',
+    desc: 'Tarifa transparente antes de pedir. Sin sorpresas ni cargos ocultos.',
+  },
+  {
+    icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>`,
+    title: 'Conductores verificados',
+    desc: 'Cada conductor pasa validación de identidad, vehículo y placas.',
+  },
+  {
+    icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
+    title: 'Tracking en vivo',
+    desc: 'Mira al conductor acercándose en el mapa, minuto a minuto.',
+  },
+  {
+    icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>`,
+    title: 'Paga como quieras',
+    desc: 'Efectivo o tarjeta. Tú eliges al final del viaje.',
+  },
+  {
+    icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>`,
+    title: 'Soporte 24/7',
+    desc: '¿Algún problema? Estamos disponibles todo el día por chat.',
+  },
+];
+---
+
+<section id="pasajeros" class="section-y bg-ink-50">
+  <div class="container-x">
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <!-- Left content -->
+      <div class="lg:col-span-5 reveal">
+        <span class="eyebrow">Para pasajeros</span>
+        <h2 class="heading-lg mt-3">
+          Moverte por la ciudad
+          <span class="gradient-text">nunca fue tan fácil</span>
+        </h2>
+        <p class="lead mt-5">
+          Olvídate del tráfico, de esperar el transporte público, o de
+          buscar un sitio de mototaxis. Pochi llega a ti.
+        </p>
+        <a href="#descarga" class="btn-primary mt-8">
+          Descargar para pasajeros
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Right grid of benefits -->
+      <div class="lg:col-span-7">
+        <div class="grid sm:grid-cols-2 gap-4 sm:gap-5">
+          {benefits.map((b, i) => (
+            <div class="card !p-5 sm:!p-6 reveal" style={`animation-delay: ${i * 80}ms`}>
+              <div class="w-11 h-11 rounded-xl bg-pochi-100 text-pochi-600 flex items-center justify-center mb-4">
+                <Fragment set:html={b.icon} />
+              </div>
+              <h3 class="font-display font-bold text-lg text-ink-900 mb-1.5">{b.title}</h3>
+              <p class="text-sm text-ink-500 leading-relaxed">{b.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
