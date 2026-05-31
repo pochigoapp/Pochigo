@@ -1,97 +1,36 @@
 ---
-const stats = [
-  { value: '$8,000', label: 'mxn semanales promedio*' },
-  { value: '0%',     label: 'comisión los primeros 30 días' },
-  { value: '24/7',   label: 'tú decides cuándo conducir' },
-];
-
-const steps = [
-  'Descarga la app PochiGO Conductor',
-  'Sube tu identificación, licencia y placas',
-  'Validamos tu cuenta en menos de 24 horas',
-  'Empieza a recibir viajes y a generar ingresos',
-];
+const waUrl = 'https://wa.me/529848779596?text=Hola%2C%20quiero%20unirme%20como%20conductor%20en%20PochiGO';
 ---
 
-<section id="conductores" class="section-y bg-pochi-gradient-dark text-white relative overflow-hidden">
-  <!-- Decorative blur orbs -->
-  <div class="absolute top-1/4 -left-32 w-96 h-96 bg-pochi-600 rounded-full blur-3xl opacity-30"></div>
-  <div class="absolute bottom-1/4 -right-32 w-96 h-96 bg-pochi-400 rounded-full blur-3xl opacity-20"></div>
-  <div class="absolute inset-0 grid-pattern opacity-[0.03]"></div>
-
-  <div class="container-x relative">
-    <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-      <!-- Left: copy -->
-      <div class="lg:col-span-6 reveal">
-        <span class="eyebrow !text-pochi-400">Para conductores</span>
-        <h2 class="heading-lg mt-3 text-white">
-          Convierte tu mototaxi en
-          <span class="bg-clip-text text-transparent bg-gradient-to-br from-pochi-300 to-pochi-500">una fuente de ingresos</span>
-        </h2>
-        <p class="lead mt-5 !text-ink-300">
-          Maneja con tu propio horario, sin jefes ni rutas fijas.
-          Tú decides cuándo y dónde trabajar.
-        </p>
-
-        <!-- Stats -->
-        <div class="grid grid-cols-3 gap-4 sm:gap-6 mt-10">
-          {stats.map((s) => (
-            <div>
-              <div class="font-display font-extrabold text-2xl sm:text-3xl text-white">
-                {s.value}
-              </div>
-              <div class="text-xs sm:text-sm text-ink-400 mt-1 leading-snug">{s.label}</div>
-            </div>
-          ))}
+<section id="conductores" class="py-10 bg-ink-900">
+  <div class="container-x">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-pochi-600 flex items-center justify-center text-2xl flex-shrink-0">
+          🛺
         </div>
-        <p class="text-xs text-ink-400 mt-3">*Promedio reportado por conductores con +30hr/semana.</p>
-
-        <div class="mt-10 flex flex-col sm:flex-row gap-3">
-          <a href="#descarga" class="btn-primary">
-            Quiero ser conductor
-          </a>
-          <a href="#contacto" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full
-                                      border-2 border-white/20 text-white font-semibold
-                                      hover:bg-white/10 transition-all">
-            Tengo dudas
-          </a>
+        <div>
+          <p class="font-display font-bold text-white text-lg leading-tight">
+            ¿Tienes mototaxi y quieres generar ingresos?
+          </p>
+          <p class="text-ink-400 text-sm mt-0.5">
+            Únete a nuestra red de conductores y empieza a recibir viajes.
+          </p>
         </div>
       </div>
-
-      <!-- Right: steps card -->
-      <div class="lg:col-span-6 reveal">
-        <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-7 sm:p-9">
-          <div class="flex items-center gap-3 mb-7">
-            <div class="w-12 h-12 rounded-xl bg-pochi-600 flex items-center justify-center text-2xl">
-              🚀
-            </div>
-            <div>
-              <div class="text-xs uppercase tracking-wider text-pochi-300 font-semibold">Empezar es fácil</div>
-              <div class="font-display font-bold text-xl text-white">4 pasos para activarte</div>
-            </div>
-          </div>
-
-          <ol class="space-y-4">
-            {steps.map((step, i) => (
-              <li class="flex items-start gap-4">
-                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-pochi-600 text-white font-bold text-sm flex items-center justify-center">
-                  {i + 1}
-                </div>
-                <p class="text-ink-200 leading-relaxed pt-1">{step}</p>
-              </li>
-            ))}
-          </ol>
-
-          <div class="mt-8 pt-7 border-t border-white/10">
-            <div class="flex items-center gap-3 text-sm">
-              <svg class="w-5 h-5 text-success" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span class="text-ink-300">Sin pagos iniciales · Sin compromiso de horas mínimas</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <a
+        href={waUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex-shrink-0 inline-flex items-center gap-2.5 px-6 py-3 rounded-full
+               bg-[#25D366] text-white font-bold text-sm
+               hover:bg-[#1ebe5d] active:scale-[0.98] transition-all shadow-lg"
+      >
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        Quiero ser conductor
+      </a>
     </div>
   </div>
 </section>
