@@ -1,74 +1,153 @@
 ---
-const cities = [
-  { name: 'Playa del Carmen',  state: 'Quintana Roo', status: 'live'    },
-  { name: 'Cancún',            state: 'Quintana Roo', status: 'live'    },
-  { name: 'Tulum',             state: 'Quintana Roo', status: 'soon'    },
-  { name: 'Chetumal',          state: 'Quintana Roo', status: 'soon'    },
-  { name: 'Mérida',            state: 'Yucatán',      status: 'soon'    },
-  { name: 'Campeche',          state: 'Campeche',     status: 'planned' },
-  { name: 'Villahermosa',      state: 'Tabasco',      status: 'planned' },
-  { name: 'Veracruz',          state: 'Veracruz',     status: 'planned' },
+// Coordinates exported from the web-admin ZoneEditor (Firestore config/pricing_zone).
+// To update: copy your polygon vertices from the ZoneEditorPage and replace the array below.
+const activeZone = [
+  [20.695, -87.100],
+  [20.695, -87.065],
+  [20.670, -87.055],
+  [20.650, -87.055],
+  [20.630, -87.060],
+  [20.615, -87.075],
+  [20.615, -87.100],
+  [20.635, -87.115],
+  [20.660, -87.118],
+  [20.680, -87.110],
 ];
 
-const statusConfig = {
-  live:    { label: 'Disponible',  badge: 'bg-success/10 text-success',     dot: 'bg-success' },
-  soon:    { label: 'Pronto',      badge: 'bg-warning/10 text-warning',     dot: 'bg-warning' },
-  planned: { label: 'Planeado',    badge: 'bg-ink-200 text-ink-600',        dot: 'bg-ink-400' },
-};
+const mapCenter = [20.655, -87.083];
+const mapZoom   = 13;
 ---
 
 <section id="cobertura" class="section-y bg-white">
   <div class="container-x">
     <!-- Header -->
-    <div class="text-center max-w-2xl mx-auto mb-14">
-      <span class="eyebrow reveal">Dónde estamos</span>
+    <div class="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
+      <span class="eyebrow reveal">Zona de cobertura</span>
       <h2 class="heading-lg mt-3 reveal">
-        Llegamos a tu ciudad
-        <span class="gradient-text">poco a poco</span>
+        Mira hasta dónde
+        <span class="gradient-text">llegamos hoy</span>
       </h2>
       <p class="lead mt-5 reveal">
-        Empezamos en el sureste mexicano y vamos creciendo.
-        ¿Tu ciudad no está? Avísanos y pídela.
+        Explora el mapa e identifica si PochiGO cubre tu colonia.
+        ¿No aparece tu zona? Avísanos y la sumamos.
       </p>
     </div>
 
-    <!-- Cities grid -->
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      {cities.map((city, i) => {
-        const cfg = statusConfig[city.status];
-        return (
-          <div class="card !p-5 reveal" style={`animation-delay: ${i * 60}ms`}>
-            <div class="flex items-start justify-between mb-3">
-              <div class="w-10 h-10 rounded-xl bg-pochi-50 flex items-center justify-center text-pochi-600">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                </svg>
-              </div>
-              <span class={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ${cfg.badge}`}>
-                <span class={`w-1.5 h-1.5 rounded-full ${cfg.dot} ${city.status === 'live' ? 'animate-pulse-slow' : ''}`}></span>
-                {cfg.label}
-              </span>
-            </div>
-            <div class="font-display font-bold text-lg text-ink-900">{city.name}</div>
-            <div class="text-sm text-ink-500">{city.state}</div>
-          </div>
-        );
-      })}
+    <!-- Map -->
+    <div class="reveal relative">
+      <div
+        id="coverage-map"
+        class="w-full rounded-3xl overflow-hidden shadow-card border border-ink-100"
+        style="height: 480px;"
+      ></div>
+
+      <!-- Tap-to-zoom hint -->
+      <div id="map-hint"
+           class="absolute inset-0 flex items-center justify-center pointer-events-none rounded-3xl">
+        <span class="bg-ink-900/70 text-white text-xs font-semibold px-3 py-1.5 rounded-full backdrop-blur-sm transition-opacity duration-500">
+          Toca el mapa para hacer zoom
+        </span>
+      </div>
     </div>
 
-    <!-- Request city CTA -->
-    <div class="mt-14 max-w-2xl mx-auto reveal">
+    <!-- Legend -->
+    <div class="mt-5 flex flex-wrap items-center justify-center gap-6 text-sm">
+      <div class="flex items-center gap-2">
+        <div class="w-3.5 h-3.5 rounded-full bg-pochi-600 opacity-80"></div>
+        <span class="text-ink-600 font-semibold">Zona activa</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-3.5 h-3.5 rounded-full bg-warning opacity-80"></div>
+        <span class="text-ink-600 font-semibold">Próximamente</span>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="mt-12 max-w-2xl mx-auto reveal">
       <div class="bg-pochi-gradient-soft rounded-3xl p-8 sm:p-10 text-center border border-pochi-200">
         <div class="text-4xl mb-3">📍</div>
-        <h3 class="heading-md text-ink-900 mb-2">¿No vemos tu ciudad?</h3>
+        <h3 class="heading-md text-ink-900 mb-2">¿Tu colonia no aparece?</h3>
         <p class="text-ink-600 mb-6 max-w-md mx-auto">
           Cuéntanos dónde estás y te avisamos cuando lleguemos.
         </p>
-        <a href="#contacto" class="btn-primary">
-          Pedir mi ciudad
-        </a>
+        <a href="#contacto" class="btn-primary">Pedir mi zona</a>
       </div>
     </div>
   </div>
 </section>
+
+<!-- Leaflet CSS -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin=""
+/>
+
+<script is:inline src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/WPeM="
+  crossorigin=""></script>
+
+<script is:inline
+  data-zone={JSON.stringify([[20.695,-87.100],[20.695,-87.065],[20.670,-87.055],[20.650,-87.055],[20.630,-87.060],[20.615,-87.075],[20.615,-87.100],[20.635,-87.115],[20.660,-87.118],[20.680,-87.110]])}
+  data-center="[20.655,-87.083]"
+  data-zoom="13"
+>
+(function () {
+  function initMap () {
+    var el = document.getElementById('coverage-map');
+    if (!el || typeof L === 'undefined') return;
+
+    var script  = document.currentScript ||
+                  document.querySelector('script[data-zone]');
+    var zone    = JSON.parse(script.getAttribute('data-zone'));
+    var center  = JSON.parse(script.getAttribute('data-center'));
+    var zoom    = parseInt(script.getAttribute('data-zoom'), 10);
+
+    var map = L.map('coverage-map', {
+      center: center,
+      zoom: zoom,
+      scrollWheelZoom: false,
+      zoomControl: true,
+    });
+
+    // CartoDB Positron — light tile that matches the brand
+    L.tileLayer(
+      'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+      {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 19,
+      }
+    ).addTo(map);
+
+    // Active coverage polygon
+    L.polygon(zone, {
+      color: '#7C3AED',
+      fillColor: '#7C3AED',
+      fillOpacity: 0.18,
+      weight: 2.5,
+    })
+      .addTo(map)
+      .bindPopup('<b>Zona activa PochiGO</b><br>🟢 Disponible ahora');
+
+    // Enable scroll-zoom on map click, disable on mouse leave
+    map.on('click', function () { map.scrollWheelZoom.enable(); });
+    map.on('mouseout', function () { map.scrollWheelZoom.disable(); });
+
+    // Hide the hint after first interaction
+    var hint = document.getElementById('map-hint');
+    if (hint) {
+      map.on('click zoom movestart', function () {
+        hint.style.opacity = '0';
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMap);
+  } else {
+    initMap();
+  }
+})();
+</script>
